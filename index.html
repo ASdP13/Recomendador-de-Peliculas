@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Recomendador de Películas con IA</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     </head>
     <body>
         <header>
-            <h1>Recomendador de Películas</h1>
+            <h1>Recomendador de películas con IA</h1>
         </header>
         <main>
             <div class="form-group">
-                <label for="generoSelect">Selecciona tu género favorito:</label>
-                <select id="generoSelect">
+                <label for="genreSelect">Seleccione su género favorito:</label>
+                <select id="genreSelect">
+                    <option selected disabled>Seleccione un género</option>
                     <option value="Acción">Acción</option>
                     <option value="Drama">Drama</option>
                     <option value="Ciencia Ficción">Ciencia Ficción</option>
@@ -22,10 +23,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <button id="botonrecomendar">Obtener Recomendación</button>
+                <button id="botonrecomendar">🎥 Recomendar película</button>
+                <button id="recomendacionIA">🤖 Recomendar con IA</button>
             </div>
             <div id="recomendacion"></div>
-            <script src="app.js"></script>
         </main>
+        <script src="app.js"></script>
     </body>
 </html>
