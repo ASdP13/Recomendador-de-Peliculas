@@ -32,4 +32,4 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 <br><br>
 ## ¿Cómo funciona la Inteligencia Artificial?
 La aplicación no solo realiza recomendaciones aleatorias, sino que también utiliza **TensorFlow.js** para predecir el género de película favorito del usuario, basándose en su historial de selecciones. Este enfoque se implementa mediante una red neuronal simple, que se entrena con los datos de las elecciones previas para predecir qué género es más probable que el usuario prefiera.
-![imagen](https://github.com/user-attachments/assets/99229663-62ca-4a89-bb27-0bcdd7487ee0)
+![imagen](https://github.com/user-attachments/assets/ed926138-6e8d-462d-9cef-d9cbabc5d122)
