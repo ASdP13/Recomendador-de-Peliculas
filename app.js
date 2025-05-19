@@ -1,5 +1,35 @@
 //Lista de películas, cada una tiene un título y un género
-const peliculas=[
+import { initializeApp } from "firebase/app";
+
+import { getAnalytics } from "firebase/analytics";
+
+let peliculas = [];
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyDEypBhc7YCqf0RqBgdE2GCAc0Gl3Wt_eY",
+
+  authDomain: "recomendador-de-pelicula.firebaseapp.com",
+
+  databaseURL: "https://recomendador-de-pelicula-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId: "recomendador-de-pelicula",
+
+  storageBucket: "recomendador-de-pelicula.firebasestorage.app",
+
+  messagingSenderId: "568575347292",
+
+  appId: "1:568575347292:web:079d3b146fccb187763499",
+
+  measurementId: "G-9297P40G28"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const analytics = getAnalytics(app);
+
+/*const peliculas=[
     {titulo: 'Avengers', genero: 'Acción'},
     {titulo: 'Forrest Gump', genero: 'Drama'},
     {titulo: 'The Matrix', genero: 'Ciencia Ficción'},
@@ -15,7 +45,7 @@ const peliculas=[
     {titulo: 'Interstellar', genero: 'Ciencia Ficción'},
     {titulo: 'How to Train Your Dragon', genero: 'Animación'},
     {titulo: 'Avengers: Endgame', genero: 'Acción'}
-];
+];*/
 
 //Historial: Cuenta cuántas veces el usuario ha elegido cada género
 let historial={
