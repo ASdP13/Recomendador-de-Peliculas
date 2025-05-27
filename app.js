@@ -1,35 +1,30 @@
-//Lista de películas, cada una tiene un título y un género
-import { initializeApp } from "firebase/app";
-
-import { getAnalytics } from "firebase/analytics";
+import { db } from "./firebase-config.js";
+import { ref, get, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
 let peliculas = [];
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyDEypBhc7YCqf0RqBgdE2GCAc0Gl3Wt_eY",
-
-  authDomain: "recomendador-de-pelicula.firebaseapp.com",
-
-  databaseURL: "https://recomendador-de-pelicula-default-rtdb.europe-west1.firebasedatabase.app",
-
-  projectId: "recomendador-de-pelicula",
-
-  storageBucket: "recomendador-de-pelicula.firebasestorage.app",
-
-  messagingSenderId: "568575347292",
-
-  appId: "1:568575347292:web:079d3b146fccb187763499",
-
-  measurementId: "G-9297P40G28"
-
+let historial = {
+  "Acción": 0,
+  "Drama": 0,
+  "Ciencia Ficción": 0,
+  "Animación": 0
 };
 
-const app = initializeApp(firebaseConfig);
+// Carga las películas desde Firebase
+async function cargarPeliculasDesdeFirebase() {
+  const peliculasRef = ref(db, 'peliculas');
+  const snapshot = await get(peliculasRef);
 
-const analytics = getAnalytics(app);
+  if (snapshot.exists()) {
+    peliculas = snapshot.val();
+    console.log("Películas cargadas:", peliculas);
+  } else {
+    console.warn("No se encontraron películas. Agrega manualmente desde Firebase.");
+  }
+}
 
-/*const peliculas=[
+// Guarda las películas por primera vez si no existen
+/*async function guardarPeliculasIniciales() {
+  const peliculasBase = [
     {titulo: 'Avengers', genero: 'Acción'},
     {titulo: 'Forrest Gump', genero: 'Drama'},
     {titulo: 'The Matrix', genero: 'Ciencia Ficción'},
@@ -45,100 +40,61 @@ const analytics = getAnalytics(app);
     {titulo: 'Interstellar', genero: 'Ciencia Ficción'},
     {titulo: 'How to Train Your Dragon', genero: 'Animación'},
     {titulo: 'Avengers: Endgame', genero: 'Acción'}
-];*/
+  ];
+  await set(ref(db, 'peliculas'), peliculasBase);
+}*/
 
-//Historial: Cuenta cuántas veces el usuario ha elegido cada género
-let historial={
-    "Acción": 0,
-    "Drama": 0,
-    "Ciencia Ficción": 0,
-    "Animación": 0
-};
+// Recomendación normal
+function recommendPelicula() {
+  const genero = document.getElementById('genreSelect').value;
 
-//Función para la recomendación sin IA, basada solo en la elección actual
-function recommendPelicula(){
-    //Se obtiene el género seleccionado del <select>
-    const genero=document.getElementById('genreSelect').value;
+  if (!genero || !(genero in historial)) {
+    return alert("Selecciona un género válido.");
+  }
 
-    //Se aumenta el contador de ese género seleccionado en el historial
-    historial[genero]++;
-
-    //Se filtran las películas que coinciden con el género seleccionado
-    const filtradas=peliculas.filter(p=> p.genero===genero);
-
-    //Si no hay películas, se muestra un mensaje de error
-    if(filtradas.length===0){
-        document.getElementById('recomendacion').textContent='No se han encontrado películas de este género';
-    }else{
-        //Si hay, se elige una aleatoriamente
-        const aleatoria=filtradas[Math.floor(Math.random()*filtradas.length)];
-
-        //Se muestra el resultado
-        document.getElementById('recomendacion').textContent='Le recomendamos: '+aleatoria.titulo;
-    }
+  historial[genero]++;
+  const filtradas = peliculas.filter(p => p.genero === genero);
+  const aleatoria = filtradas[Math.floor(Math.random() * filtradas.length)];
+  if (aleatoria) {
+    document.getElementById('recomendacion').textContent = `Le recomendamos: ${aleatoria.titulo}`;
+  } else {
+    document.getElementById('recomendacion').textContent = `No hay películas de ese género`;
+  }
 }
 
-//Función que "predice" el género favorito del usuario según su historial usando TensorFlow.js
-async function predecirGeneroFavorito(historial){
-    //Lista de géneros en orden
-    const generos=["Acción", "Drama", "Ciencia Ficción", "Animación"];
+// Recomendación con IA
+function recomendarConIA() {
+  const generos = ["Acción", "Drama", "Ciencia Ficción", "Animación"];
+  console.log("Historial actual:", historial);
 
-    //Se crean los tensores de entrada (x): 0, 1, 2, 3 para representar los cuatro géneros
-    const xs=tf.tensor2d([[0], [1], [2], [3]]);
+  // Encuentra el máximo valor
+  let maxValor = Math.max(...generos.map(g => historial[g]));
 
-    //Se crean los tensores de salida (y): Las veces que el usuario ha elegido cada género
-    const ys=tf.tensor2d([
-        [historial["Acción"]],
-        [historial["Drama"]],
-        [historial["Ciencia Ficción"]],
-        [historial["Animación"]]
-    ]);
+  // Encuentra todos los géneros con ese máximo
+  let generosMaximos = generos.filter(g => historial[g] === maxValor);
 
-    //Se crea un modelo secuencial simple
-    const model=tf.sequential();
+  // Escoge uno al azar entre los máximos
+  let mejorGenero = generosMaximos[Math.floor(Math.random() * generosMaximos.length)];
 
-    //Se añade una capa densa con un solo modelo secuencial simple
-    model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+  // Elige película aleatoria de ese género
+  const pelisFiltradas = peliculas.filter(p => p.genero === mejorGenero);
+  if (pelisFiltradas.length === 0) {
+    document.getElementById('recomendacion').textContent = `No hay películas del género ${mejorGenero}`;
+    return;
+  }
+  const aleatoria = pelisFiltradas[Math.floor(Math.random() * pelisFiltradas.length)];
 
-    //Se compila el modelo con descenso de gradiente estocástico (sgd)
-    model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
-
-    //Se entrena el modelo con los datos
-    await model.fit(xs, ys,{epochs: 200});
-
-    //En este punto se va a predecir cuál es el género más "preferido"
-    let mejorGenero=null;
-    let maxValor=-Infinity;
-
-    for (let i=0; i < generos.length; i++){
-        //Se predice cuánta preferencia tiene el modelo por este género
-        const prediccion=model.predict(tf.tensor2d([[i]])).dataSync()[0];
-
-        //Se comprueba si es el mayor valor
-        if (prediccion > maxValor){
-            maxValor=prediccion;
-            mejorGenero=generos[i]; //Guardamos el género con mayor predicción
-        }
-    }
-
-    //Se devuelve el género con más preferencia según la IA
-    return mejorGenero;
+  document.getElementById('recomendacion').textContent =
+    `Según sus gustos, le recomendamos: ${aleatoria.titulo} (${mejorGenero})`;
 }
 
-//Evento para el botón de recomendación con IA
-document.getElementById('recomendacionIA').addEventListener('click', async()=>{
-    //Se obtiene el género predicho por la IA
-    const generoIA=await predecirGeneroFavorito(historial);
 
-    //Se filtran las películas del género elegido
-    const pelisFiltradas=peliculas.filter(p=> p.genero===generoIA);
 
-    //Se elige una película al azar
-    const aleatoria=pelisFiltradas[Math.floor(Math.random() * pelisFiltradas.length)];
 
-    //Se muestra la recomendación con IA
-    document.getElementById('recomendacion').textContent='Según sus gustos, le recomendamos: '+aleatoria.titulo+' ('+generoIA+')';
-});
+// Iniciar
+(async () => {
+  await cargarPeliculasDesdeFirebase();
 
-//Evento para el botón de recomendación normal (sin IA)
-document.getElementById('botonrecomendar').addEventListener('click', recommendPelicula);
+  document.getElementById('botonrecomendar').addEventListener('click', recommendPelicula);
+  document.getElementById('recomendacionIA').addEventListener('click', recomendarConIA);
+})();
