@@ -6,7 +6,6 @@ const firebaseConfig = {
   authDomain: "recomendador-de-pelicula.firebaseapp.com",
   databaseURL: "https://recomendador-de-pelicula-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "recomendador-de-pelicula",
-  storageBucket: "recomendador-de-pelicula.appspot.com",
   messagingSenderId: "568575347292",
   appId: "1:568575347292:web:079d3b146fccb187763499",
   measurementId: "G-9297P40G28"
