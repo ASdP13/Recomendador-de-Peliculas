@@ -1,4 +1,4 @@
-# Recomendador de películas con Inteligencia Artificial
+# Recomendador de películas
 ![imagen](https://github.com/user-attachments/assets/e3db5e5b-609a-425c-8eb1-e35957ebe0e3)
 <br><br>
 ## Introducción
