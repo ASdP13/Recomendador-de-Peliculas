@@ -12,10 +12,12 @@ let historial = {
 
 async function cargarPeliculas() {
   try {
-    const peliculasRef = ref(db, 'peliculas');
-    const snapshot = await get(peliculasRef);
+    const rootRef = ref(db, '/'); // Leer desde la raíz
+    const snapshot = await get(rootRef);
     if (snapshot.exists()) {
-      peliculas = snapshot.val();
+      const data = snapshot.val();
+      console.log("Datos crudos de Firebase:", data);
+      peliculas = data.peliculas || [];
       console.log("Películas cargadas desde Firebase:", peliculas);
     } else {
       console.warn("No hay datos en Firebase, intentando cargar local...");
@@ -54,12 +56,19 @@ function recommendPelicula() {
   document.getElementById('recomendacion').textContent = `Le recomendamos: ${aleatoria.titulo}`;
 }
 
-function recomendarConIA() {
+function recomendarGustos() {
   const generos = Object.keys(historial);
   let maxValor = Math.max(...generos.map(g => historial[g]));
+
+  if (maxValor === 0) {
+    document.getElementById('recomendacion').textContent = "Su historial está vacío, pulse \"Recomendar película\" primero";
+    return;
+  }
+
   let generosMaximos = generos.filter(g => historial[g] === maxValor);
   let mejorGenero = generosMaximos[Math.floor(Math.random() * generosMaximos.length)];
   const pelisFiltradas = peliculas.filter(p => p.genero === mejorGenero);
+
   if (pelisFiltradas.length === 0) {
     document.getElementById('recomendacion').textContent = `No hay películas del género ${mejorGenero}`;
     return;
@@ -72,5 +81,5 @@ function recomendarConIA() {
   await cargarPeliculas();
 
   document.getElementById('botonrecomendar').addEventListener('click', recommendPelicula);
-  document.getElementById('recomendaciongustos').addEventListener('click', recomendarConIA);
+  document.getElementById('recomendaciongustos').addEventListener('click', recomendarGustos);
 })();
