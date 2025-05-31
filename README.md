@@ -1,5 +1,5 @@
 # Recomendador de películas
-![imagen](https://github.com/user-attachments/assets/e3db5e5b-609a-425c-8eb1-e35957ebe0e3)
+![Inicio de la aplicación](https://github.com/user-attachments/assets/e3db5e5b-609a-425c-8eb1-e35957ebe0e3)
 <br><br>
 ## Introducción
 Este es un proyecto web interactivo que recomienda películas al usuario en función del género que se seleccione (como Acción, Drama, Animación o Ciencia Ficción). Además, incluye una funcionalidad que simula un sistema de recomendación en el que el sistema no solo hace recomendaciones aleatorias, sino que también predice el género favorito o preferido por el usuario en función de su historial de elecciones.
@@ -34,12 +34,13 @@ Acceder al siguiente enlace
 1. Seleccionar un género de películas del menú desplegable.
 2. Hacer "click" en el botón de "Recomendar película"
 3. Aparecerá una película sugerida.
+![Versión estándar](https://github.com/user-attachments/assets/6dabc3d6-d42b-405d-b651-fb9f590581f7)
 ### Versión sobre gustos
 1. Seleccionar un género de películas del menú desplegable.
 2. Hacer "click" en el botón de "Recomendar según gustos"
 3. Aparecerá una película sugerida al tener en cuenta el historial de selecciones para predecir el género preferido.
 <br><br>
-![imagen](https://github.com/user-attachments/assets/63f9c6ba-2ebb-4e0d-a63e-a96becef3d3c)
+![Según gustos](https://github.com/user-attachments/assets/63f9c6ba-2ebb-4e0d-a63e-a96becef3d3c)
 <br><br>
 ## Proceso de despliegue
 Se ha utilizado GitHub Pages para servir el frontend estático. Para el backend, se ha configurado Firebase Realtime Database como base de datos en la nube con reglas públicas de lectura y escritura. Se ha establecido la conexión desde la aplicación al proyecto de Firebase usando la configuración SDK. Finalmente, se ha verificado el correcto funcionamiento de la aplicación online, asegurando que los datos se carguen desde Firebase.
@@ -54,4 +55,4 @@ La base de datos utilizada en este proyecto es Firebase Realtime Database. La es
 - _"titulo":_ Nombre de la película _(Cadena de texto)_.
 - _"genero":_ Categoría a la que pertenece _("Acción", "Drama", "Ciencia Ficción" y "Animación")_.
 <br><br>
-![imagen](https://github.com/user-attachments/assets/d3aac3f4-32ce-4520-b0a5-354873ad5297)
+![JSON estructura Base de Datos](https://github.com/user-attachments/assets/d3aac3f4-32ce-4520-b0a5-354873ad5297)
