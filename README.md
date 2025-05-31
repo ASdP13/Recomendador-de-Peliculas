@@ -19,6 +19,10 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 - [Firebase Realtime Database (via CDN)](https://firebase.google.com/docs/database/web/start)
 <br><br>
 ## ¿Cómo utilizarlo?
+### Ejecución online
+Acceder al siguiente enlace
+<br>
+[https://asdp13.github.io/Recomendador-de-Peliculas/](https://asdp13.github.io/Recomendador-de-Peliculas/)
 ### Ejecución en local
 1. Clonar este repositorio o descargar los archivos.
 2. Abrir la carpeta del proyecto en Visual Studio Code.
@@ -26,11 +30,11 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 4. Hacer "click" en el botón Go Live en la esquina inferior derecha.
 5. Esperar a que se abra el navegador.
 > 💡 *Nota*: Live Server es una extensión para Visual Studio Code que permite ejecutar archivos HTML en un servidor local. No es una dependencia del proyecto, pero facilita su ejecución en entorno local.
-#### Versión estándar
+### Versión estándar
 1. Seleccionar un género de películas del menú desplegable.
 2. Hacer "click" en el botón de "Recomendar película"
 3. Aparecerá una película sugerida.
-#### Versión sobre gustos
+### Versión sobre gustos
 1. Seleccionar un género de películas del menú desplegable.
 2. Hacer "click" en el botón de "Recomendar según gustos"
 3. Aparecerá una película sugerida al tener en cuenta el historial de selecciones para predecir el género preferido.
@@ -39,3 +43,13 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 <br><br>
 ## Proceso de despliegue
 Se ha utilizado GitHub Pages para servir el frontend estático. Para el backend, se ha configurado Firebase Realtime Database como base de datos en la nube con reglas públicas de lectura y escritura. Se ha establecido la conexión desde la aplicación al proyecto de Firebase usando la configuración SDK. Finalmente, se ha verificado el correcto funcionamiento de la aplicación online, asegurando que los datos se carguen desde Firebase.
+<br><br>
+##Base de datos
+### Conexión a la bases de datos online
+La conexión con Firebase se realiza desde el código JavaScript usando la configuración SDK una vez se ha accedido a la aplicación. Firebase utiliza una base de datos Real Time Database la cual tiene ya guardadas diferentes películas.
+### Conexión a la base de datos en local
+Una vez accedido a la aplicación, se conectará directamente con Firebase a través del código JavaScript usando la configuración SDK del archivo de configuración de Firebase. Firebase utiliza una base de datos Real Time Database la cual tiene ya guardadas diferentes películas.
+### Estructura de la tabla
+La base de datos utilizada en este proyecto es Firebase Realtime Database. La estructura es una lista de películas agrupadas bajo el nodo principal peliculas. Cada película está representada como un objeto dentro de un array y contiene dos propiedades:
+- _"titulo":_ Nombre de la película _(Cadena de texto)_.
+- _"genero":_ Categoría a la que pertenece _("Acción", "Drama", "Ciencia Ficción" y "Animación")_.
