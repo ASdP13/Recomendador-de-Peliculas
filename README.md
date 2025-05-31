@@ -36,3 +36,6 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 3. Aparecerá una película sugerida al tener en cuenta el historial de selecciones para predecir el género preferido.
 <br><br>
 ![imagen](https://github.com/user-attachments/assets/63f9c6ba-2ebb-4e0d-a63e-a96becef3d3c)
+<br><br>
+## Proceso de despliegue
+Se ha utilizado GitHub Pages para servir el frontend estático. Para el backend, se ha configurado Firebase Realtime Database como base de datos en la nube con reglas públicas de lectura y escritura. Se ha establecido la conexión desde la aplicación al proyecto de Firebase usando la configuración SDK. Finalmente, se ha verificado el correcto funcionamiento de la aplicación online, asegurando que los datos se carguen desde Firebase.
