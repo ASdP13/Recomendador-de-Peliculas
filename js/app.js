@@ -20,23 +20,10 @@ async function cargarPeliculas() {
       peliculas = data.peliculas || [];
       console.log("Películas cargadas desde Firebase:", peliculas);
     } else {
-      console.warn("No hay datos en Firebase, intentando cargar local...");
-      await cargarPeliculasLocal();
+      console.warn("No hay datos en Firebase");
     }
   } catch (error) {
-    console.warn("Error al conectar con Firebase, cargando datos locales:", error);
-    await cargarPeliculasLocal();
-  }
-}
-
-async function cargarPeliculasLocal() {
-  try {
-    const response = await fetch('./json/peliculas.json');
-    if (!response.ok) throw new Error("Error al cargar el JSON local");
-    peliculas = await response.json();
-    console.log("Películas cargadas desde JSON local:", peliculas);
-  } catch (error) {
-    console.error("Error al cargar las películas locales:", error);
+    console.warn("Error al conectar con Firebase:", error);
   }
 }
 
