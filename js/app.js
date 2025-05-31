@@ -1,23 +1,7 @@
 import { db } from "./firebase-config.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-let peliculas = [
-  {titulo: 'Avengers', genero: 'Acción'},
-  {titulo: 'Forrest Gump', genero: 'Drama'},
-  {titulo: 'The Matrix', genero: 'Ciencia Ficción'},
-  {titulo: 'Toy Story', genero: 'Animación'},
-  {titulo: 'Inception', genero: 'Acción'},
-  {titulo: 'The Godfather', genero: 'Drama'},
-  {titulo: 'The Dark Knight', genero: 'Acción'},
-  {titulo: 'The Shawshank Redemption', genero: 'Drama'},
-  {titulo: 'Star Wars', genero: 'Ciencia Ficción'},
-  {titulo: 'Frozen', genero: 'Animación'},
-  {titulo: 'Guardians of the Galaxy', genero: 'Acción'},
-  {titulo: 'The Social Network', genero: 'Drama'},
-  {titulo: 'Interstellar', genero: 'Ciencia Ficción'},
-  {titulo: 'How to Train Your Dragon', genero: 'Animación'},
-  {titulo: 'Avengers: Endgame', genero: 'Acción'}
-];
+let peliculas = [];
 
 let historial = {
   "Acción": 0,
@@ -26,7 +10,6 @@ let historial = {
   "Animación": 0
 };
 
-// Intenta cargar las películas desde Firebase y si falla, usa local
 async function cargarPeliculas() {
   try {
     const peliculasRef = ref(db, 'peliculas');
@@ -35,17 +18,30 @@ async function cargarPeliculas() {
       peliculas = snapshot.val();
       console.log("Películas cargadas desde Firebase:", peliculas);
     } else {
-      console.warn("No hay datos en Firebase, usando local.");
+      console.warn("No hay datos en Firebase, intentando cargar local...");
+      await cargarPeliculasLocal();
     }
   } catch (error) {
-    console.warn("Error al conectar con Firebase, usando datos locales:", error);
+    console.warn("Error al conectar con Firebase, cargando datos locales:", error);
+    await cargarPeliculasLocal();
+  }
+}
+
+async function cargarPeliculasLocal() {
+  try {
+    const response = await fetch('./json/peliculas.json');
+    if (!response.ok) throw new Error("Error al cargar el JSON local");
+    peliculas = await response.json();
+    console.log("Películas cargadas desde JSON local:", peliculas);
+  } catch (error) {
+    console.error("Error al cargar las películas locales:", error);
   }
 }
 
 function recommendPelicula() {
   const genero = document.getElementById('genreSelect').value;
   if (!genero || !(genero in historial)) {
-    document.getElementById('recomendacion').textContent='No se han encontrado películas de este género';
+    document.getElementById('recomendacion').textContent = 'No se han encontrado películas de este género';
     return;
   }
   historial[genero]++;
@@ -76,5 +72,5 @@ function recomendarConIA() {
   await cargarPeliculas();
 
   document.getElementById('botonrecomendar').addEventListener('click', recommendPelicula);
-  document.getElementById('recomendacionIA').addEventListener('click', recomendarConIA);
+  document.getElementById('recomendaciongustos').addEventListener('click', recomendarConIA);
 })();
