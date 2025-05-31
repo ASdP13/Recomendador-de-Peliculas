@@ -8,9 +8,7 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 - Interfaz web sencilla y responsive.
 - Selector de género de películas para el usuario.
 - Recomendación aleatoria de una película según el género elegido.
-- Recomendación Inteligente usando IA basada en el historial de elecciones del usuario.
-- Posibilidad de ampliar el sistema con un modelo de IA real.
-- Integración básica de TensorFlow.js para demostrar el uso de bibliotecas de IA en la web.
+- Recomendación Inteligente basada en el historial de elecciones del usuario.
 <br><br>
 ## Tecnologías utilizadas
 - **![HTML](https://img.shields.io/badge/-HTML-%23e34f26?style=flat&labelColor=%23ffffff&logo=HTML5)** – Estructura de la página web.
