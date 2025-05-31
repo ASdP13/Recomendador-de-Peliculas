@@ -35,4 +35,4 @@ Este es un proyecto web interactivo que recomienda películas al usuario en func
 2. Hacer "click" en el botón de "Recomendar según gustos"
 3. Aparecerá una película sugerida al tener en cuenta el historial de selecciones para predecir el género preferido.
 <br><br>
-![imagen](https://github.com/user-attachments/assets/3fe4623e-74a8-49f9-8166-d409f8953fad)
+![imagen](https://github.com/user-attachments/assets/63f9c6ba-2ebb-4e0d-a63e-a96becef3d3c)
