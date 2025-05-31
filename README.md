@@ -2,7 +2,7 @@
 ![imagen](https://github.com/user-attachments/assets/e3db5e5b-609a-425c-8eb1-e35957ebe0e3)
 <br><br>
 ## Introducción
-Este es un proyecto web interactivo que recomienda películas al usuario en función del género que se seleccione (como Acción, Drama, Animación o Ciencia Ficción). Además, incluye una funcionalidad de Inteligencia Artificial (IA) basada en ***TensorFlow.js***, que simula un sistema de recomendación. El sistema no solo hace recomendaciones aleatorias, sino que también predice el género favorito o preferido por el usuario en función de su historial de elecciones.
+Este es un proyecto web interactivo que recomienda películas al usuario en función del género que se seleccione (como Acción, Drama, Animación o Ciencia Ficción). Además, incluye una funcionalidad que simula un sistema de recomendación en el que el sistema no solo hace recomendaciones aleatorias, sino que también predice el género favorito o preferido por el usuario en función de su historial de elecciones.
 <br><br>
 ## Características
 - Interfaz web sencilla y responsive.
