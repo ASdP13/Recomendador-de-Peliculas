@@ -44,7 +44,7 @@ Acceder al siguiente enlace
 ## Proceso de despliegue
 Se ha utilizado GitHub Pages para servir el frontend estático. Para el backend, se ha configurado Firebase Realtime Database como base de datos en la nube con reglas públicas de lectura y escritura. Se ha establecido la conexión desde la aplicación al proyecto de Firebase usando la configuración SDK. Finalmente, se ha verificado el correcto funcionamiento de la aplicación online, asegurando que los datos se carguen desde Firebase.
 <br><br>
-##Base de datos
+## Base de datos
 ### Conexión a la bases de datos online
 La conexión con Firebase se realiza desde el código JavaScript usando la configuración SDK una vez se ha accedido a la aplicación. Firebase utiliza una base de datos Real Time Database la cual tiene ya guardadas diferentes películas.
 ### Conexión a la base de datos en local
@@ -53,3 +53,5 @@ Una vez accedido a la aplicación, se conectará directamente con Firebase a tra
 La base de datos utilizada en este proyecto es Firebase Realtime Database. La estructura es una lista de películas agrupadas bajo el nodo principal peliculas. Cada película está representada como un objeto dentro de un array y contiene dos propiedades:
 - _"titulo":_ Nombre de la película _(Cadena de texto)_.
 - _"genero":_ Categoría a la que pertenece _("Acción", "Drama", "Ciencia Ficción" y "Animación")_.
+<br><br>
+![imagen](https://github.com/user-attachments/assets/d3aac3f4-32ce-4520-b0a5-354873ad5297)
